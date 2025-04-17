@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ALJOBS - Публикуване на обява</title>
+    <style>
+        body {
+            background-color: rgb(249, 250, 251);
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .post-header h2 {
+            color: #1f2937;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .post-header p {
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: white;
+            color: #1f2937;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .navbar {
+            background-color: #2b3544;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+            height: 60px;
+        }
+
+        .logo {
+            color: white !important;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .radio-group-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            margin: 0;
+            position: relative;
+        }
+
+        .radio-item input[type="radio"]:checked {
+            border-color: #3b82f6;
+        }
+
+        .radio-item input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .radio-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+            color: #4b5563;
+        }
+
+        .radio-item:hover input[type="radio"] {
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">ALJOBS</a>
+        <div class="nav-links">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}">Изход</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="post-header">
+            <h2>Публикуване на нова обява</h2>
+            <p>Попълнете информацията за работната позиция</p>
+        </div>
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">Заглавие на позицията</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Име на компанията</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Локация</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salary">Заплата (лв.)</label>
+                <input type="text" id="salary" name="salary" placeholder="Например: 2000-3000 лв.">
+            </div>
+
+            <div class="form-group">
+                <label for="job_type">Тип работа</label>
+                <select id="job_type" name="job_type" required>
+                    <option value="">Изберете тип работа</option>
+                    <option value="full_time">Пълно работно време</option>
+                    <option value="part_time">Непълно работно време</option>
+                    <option value="remote">Дистанционна работа</option>
+                    <option value="contract">Договор</option>
+                    <option value="temporary">Временна работа</option>
+                    <option value="internship">Стаж</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experience_level">Ниво на опит</label>
+                <select id="experience_level" name="experience_level" required>
+                    <option value="">Изберете ниво на опит</option>
+                    <option value="intern">Стажант</option>
+                    <option value="junior">Младши специалист</option>
+                    <option value="mid">Среден специалист</option>
+                    <option value="senior">Старши специалист</option>
+                    <option value="lead">Екипен ръководител</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Категория</label>
+                <select id="category" name="category" required>
+                    <option value="">Изберете категория</option>
+                    <option value="programming">Програмиране</option>
+                    <option value="construction">Строителство</option>
+                    <option value="cooking">Готварство</option>
+                    <option value="driving">Шофьори</option>
+                    <option value="medical">Медицина</option>
+                    <option value="education">Образование</option>
+                    <option value="accounting">Счетоводство</option>
+                    <option value="design">Дизайн</option>
+                    <option value="sales">Продажби</option>
+                    <option value="mechanics">Механика</option>
+                    <option value="electrical">Електротехника</option>
+                    <option value="beauty">Фризьорство</option>
+                    <option value="security">Охрана</option>
+                    <option value="gardening">Градинарство</option>
+                    <option value="other">Други</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="radio-group-label">Вид работно време</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="full_time" name="work_time" value="full_time" required>
+                        <label for="full_time">Пълен работен ден</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="part_time" name="work_time" value="part_time">
+                        <label for="part_time">Намален работен ден</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="radio-group-label">Възможност за работа</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="remote" name="work_location" value="remote" required>
+                        <label for="remote">Дистанционна работа</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="office" name="work_location" value="office">
+                        <label for="office">Присъствена работа</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание на позицията</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="requirements">Изисквания към кандидатите</label>
+                <textarea id="requirements" name="requirements" required 
+                          placeholder="Опишете необходимите умения и квалификации..."></textarea>
+            </div>
+
+            <button type="submit">Публикувай обявата</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<div class="loading-screen">
+    <div class="loading-container">
+        <div class="loader"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Намираме всички форми
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // Намираме submit бутона
+            const button = form.querySelector('button[type="submit"]');
+            
+            // Добавяме loading клас към бутона
+            if (button) {
+                button.classList.add('btn-loading');
+            }
+            
+            // Показваме loading screen
+            document.querySelector('.loading-screen').classList.add('active');
+        });
+    });
+});
+</script> 

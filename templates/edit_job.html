@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Редактиране на обява</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('edit_job', job_id=job.id) }}">
+                        <div class="form-group mb-3">
+                            <label for="title">Заглавие на позицията</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ job.title }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="company">Компания</label>
+                            <input type="text" class="form-control" id="company" name="company" value="{{ job.company }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="location">Локация</label>
+                            <input type="text" class="form-control" id="location" name="location" value="{{ job.location }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="salary">Заплата (незадължително)</label>
+                            <input type="text" class="form-control" id="salary" name="salary" value="{{ job.salary }}">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="job_type">Тип работа</label>
+                            <select class="form-control" id="job_type" name="job_type">
+                                <option value="full_time" {% if job.job_type == 'full_time' %}selected{% endif %}>Пълно работно време</option>
+                                <option value="part_time" {% if job.job_type == 'part_time' %}selected{% endif %}>Непълно работно време</option>
+                                <option value="remote" {% if job.job_type == 'remote' %}selected{% endif %}>Дистанционна работа</option>
+                                <option value="contract" {% if job.job_type == 'contract' %}selected{% endif %}>Договор</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="experience_level">Ниво на опит</label>
+                            <select class="form-control" id="experience_level" name="experience_level">
+                                <option value="intern" {% if job.experience_level == 'intern' %}selected{% endif %}>Стажант</option>
+                                <option value="junior" {% if job.experience_level == 'junior' %}selected{% endif %}>Junior</option>
+                                <option value="mid" {% if job.experience_level == 'mid' %}selected{% endif %}>Mid-Level</option>
+                                <option value="senior" {% if job.experience_level == 'senior' %}selected{% endif %}>Senior</option>
+                                <option value="lead" {% if job.experience_level == 'lead' %}selected{% endif %}>Team Lead</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="description">Описание на позицията</label>
+                            <textarea class="form-control" id="description" name="description" rows="6" required>{{ job.description }}</textarea>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="requirements">Изисквания</label>
+                            <textarea class="form-control" id="requirements" name="requirements" rows="6" required>{{ job.requirements }}</textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('my_jobs') }}" class="btn btn-secondary">Отказ</a>
+                            <button type="submit" class="btn btn-primary">Запази промените</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+</style>
+{% endblock %} 

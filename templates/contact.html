@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Лична информация</h2>
+                    <div class="info-section mb-4">
+                        <h4>Име</h4>
+                        <p>Александър Росенов Христов</p>
+                        
+                        <h4>Местоположение</h4>
+                        <p>кв. Опълченски, ул. „Стефан Сливков" 7, 6009 Стара Загора</p>
+                        
+                        <h4>Училище</h4>
+                        <p>ПГКНМА "Минко Балкански"</p>
+                    </div>
+
+                    <h2 class="text-center mb-4">Свържете се с мен</h2>
+                    <div class="contact-section">
+                        <h4>Email</h4>
+                        <p>alekshristov2006@gmail.com</p>
+                        
+                        <h4>Телефон</h4>
+                        <p>+359893530191</p>
+                        
+                        <div class="social-links text-center mt-4">
+                            <a href="https://www.facebook.com/profile.php?id=100010557104219" target="_blank" class="social-link">
+                                <i class="fab fa-facebook fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Местоположение</h2>
+                    <div class="map-container">
+                        <iframe 
+                            width="100%" 
+                            height="450" 
+                            style="border:0" 
+                            loading="lazy" 
+                            allowfullscreen 
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=кв.+Опълченски,+ул.+Стефан+Сливков+7,+6009+Стара+Загора">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.info-section, .contact-section {
+    padding: 20px 0;
+}
+
+h4 {
+    color: #2b3544;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #4a5568;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    margin-top: 30px;
+}
+
+.social-link {
+    color: #3b5998;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: #2d4373;
+}
+
+.map-container {
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+</style>
+{% endblock %} 

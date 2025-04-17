@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Кандидат: {{ application.full_name }}</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-primary">Контактна информация:</h5>
+                            <p><strong>Телефон:</strong> {{ application.phone }}</p>
+                            <p><strong>Email:</strong> {{ application.user.email }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-primary">За обява:</h5>
+                            <p><strong>Позиция:</strong> {{ application.job.title }}</p>
+                            <p><strong>Компания:</strong> {{ application.job.company }}</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="text-primary">Мотивационно писмо:</h5>
+                        <div class="p-3 bg-light rounded">
+                            {{ application.cover_letter|nl2br }}
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('my_jobs') }}" class="btn btn-secondary mr-2">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </a>
+                        <a href="{{ url_for('view_cv', application_id=application.id) }}" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Изтегли CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.card-header {
+    border-bottom: none;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.btn {
+    padding: 8px 20px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+</style>
+{% endblock %} 
